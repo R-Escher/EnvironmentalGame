@@ -1,6 +1,6 @@
 import pygame
 from config.player import Player
-from config.display import Display
+from config.screen import Screen
 
 def game_init():
     ''' sets config settings, such as: 
@@ -9,12 +9,12 @@ def game_init():
     # initialiazes pygame
     pygame.init()
 
-    # inits display configs
-    display = Display()
+    # inits screen configs
+    screen = Screen(pygame)
 
     # inits player configs
-    player = Player(display)
+    player = Player(screen)
 
-    return display, player
+    return screen, player
 
 
