@@ -7,7 +7,7 @@ def handler(event, Screen, Player):
 
     if event.type == pygame.QUIT:
         alive = False
-        
+
     # if key is pressed down
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_RIGHT:
@@ -18,10 +18,13 @@ def handler(event, Screen, Player):
             Player.rotate_player("positive")
         if event.key == pygame.K_UP:
             print("up key")
-            Player.move_player("ahead")
+            Player.accelerate_player("ahead")
         if event.key == pygame.K_DOWN:
             print("down key")
-            Player.move_player("reverse")
+            Player.accelerate_player("reverse")
+        if event.key == pygame.K_SPACE:
+            print("Break")
+            Player.break_player()
         if event.key == pygame.K_ESCAPE:
             print("Exit program.")
             alive = False    

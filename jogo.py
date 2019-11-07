@@ -24,6 +24,11 @@ while alive:
     # handle events such as keyboard presses and mouse
     for event in pygame.event.get():
         alive = keyboard_handler.handler(event, Screen, Player)
+    
+    
+    # move boats when there is acceleration (speed>0)
+    print("Speed: "+str(Player.playerSpeed))
+    Player.move_player()
             
             
 
