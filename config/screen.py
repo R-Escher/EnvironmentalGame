@@ -11,4 +11,6 @@ class Screen:
         
         # sets background color
         self.screen.fill((255, 255, 255))
+
+        # updates display after changes
         self.pygame.display.update()

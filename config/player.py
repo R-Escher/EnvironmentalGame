@@ -1,13 +1,15 @@
-import math
+import math, time
 
 class Player:
     def __init__(self, Screen):
         self.playerX = 300                          # x-axis position
         self.playerY = 300                          # y-axis position
         self.angle = 0                              # start-angle (pointing towards right-side of screen)
-        self.angleStep = 10                         # angle-step variation at key-press
+        self.angleStep = 4                          # angle-step variation at key-press
         self.playerSpeed = 0                        # player current speed
-        self.playerAcceleration = 0.01               # speed-step variation at ket-press
+        self.platerMaxSpeed = 3.5                     # player's max speed
+        self.playerAcceleration = 0.1               # speed-step variation at ket-press
+        self.waterDragConstant = 0.07               # defines water drag force
         self.pygame = Screen.pygame                 # pygame library 
         self.playerImage = self.pygame.transform.scale( (self.pygame.image.load("archive/boat.png")), (50, 30) )
         self.originalImage = self.playerImage       # stores original image which this only will be rotated due to memory bug
@@ -19,18 +21,30 @@ class Player:
         ''' Increases (UPKEY) or Decreases (DOWNKEY) boat's current speed. '''
         if way == "ahead":
             # hits gas pedal if not at max speed
-            if self.playerSpeed <= 0.25:
+            if self.playerSpeed <= self.platerMaxSpeed:
                 self.playerSpeed += self.playerAcceleration
         if way == "reverse":
             # releases gas pedal and reverses when speed<0, if not at maximum reverse speed
-            if self.playerSpeed >= -0.1:
+            if self.playerSpeed >= ((self.platerMaxSpeed - 0.5)*(-1)):
                 self.playerSpeed -= self.playerAcceleration
         self.update_player()
 
+
     def break_player(self):
-        ''' hits break pedal '''
+        ''' Gradually slows down boat until fully stops. '''
+        if self.playerSpeed > 0:
+            while self.playerSpeed > 0:
+                self.playerSpeed -= self.waterDragConstant
+                self.calculate_new_xy(self.playerSpeed)
+                self.update_player()
+                time.sleep(0.05)
+        elif self.playerSpeed < 0:
+            while self.playerSpeed < 0:
+                self.playerSpeed += self.waterDragConstant
+                self.calculate_new_xy(self.playerSpeed)
+                self.update_player()
+                time.sleep(0.05)
         self.playerSpeed = 0
-        self.update_player()
     
     
     def move_player(self):

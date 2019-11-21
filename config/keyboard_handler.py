@@ -2,32 +2,18 @@ import pygame
 
 
 
-def handler(event, Screen, Player):
+def handler(key, Screen, Player):
+    ''' Handles keyboard presses, if any. '''
     alive = True
 
-    if event.type == pygame.QUIT:
-        alive = False
+    print(Player.playerSpeed)
 
-    # if key is pressed down
-    if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_RIGHT:
-            print("right key")
-            Player.rotate_player("negative")
-        if event.key == pygame.K_LEFT:
-            print("left key")
-            Player.rotate_player("positive")
-        if event.key == pygame.K_UP:
-            print("up key")
-            Player.accelerate_player("ahead")
-        if event.key == pygame.K_DOWN:
-            print("down key")
-            Player.accelerate_player("reverse")
-        if event.key == pygame.K_SPACE:
-            print("Break")
-            Player.break_player()
-        if event.key == pygame.K_ESCAPE:
-            print("Exit program.")
-            alive = False    
-
+    #keys = pygame.key.get_pressed()
+    if key[pygame.K_RIGHT]: Player.rotate_player("negative")
+    if key[pygame.K_LEFT]: Player.rotate_player("positive")
+    if key[pygame.K_UP]: Player.accelerate_player("ahead")
+    if key[pygame.K_DOWN]: Player.accelerate_player("reverse")
+    if key[pygame.K_SPACE]: Player.break_player()
+    if key[pygame.K_ESCAPE]: alive = False
 
     return alive    

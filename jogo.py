@@ -17,20 +17,27 @@ import pygame
 from config import keyboard_handler
 
 # init configuration settings
-Screen, Player = init.game_init()
+Screen, Player, clock = init.game_init()
 
 alive = True
 while alive:
+    
+    if pygame.event.get(pygame.QUIT): 
+        exit()
+
     # handle events such as keyboard presses and mouse
-    for event in pygame.event.get():
-        alive = keyboard_handler.handler(event, Screen, Player)
+    pygame.event.pump()
+    key = pygame.key.get_pressed()  
+    alive = keyboard_handler.handler(key, Screen, Player)
     
     
     # move boats when there is acceleration (speed>0)
-    print("Speed: "+str(Player.playerSpeed))
+    #print("Speed: "+str(Player.playerSpeed))
     Player.move_player()
             
             
 
                        
+    clock.tick(30)
+
 exit()

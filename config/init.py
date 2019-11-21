@@ -15,6 +15,8 @@ def game_init():
     # inits player configs
     player = Player(screen)
 
-    return screen, player
+    clock = pygame.time.Clock()
+
+    return screen, player, clock
 
 
