@@ -7,14 +7,16 @@ class Player:
         self.angle = 0                              # start-angle (pointing towards right-side of screen)
         self.angleStep = 4                          # angle-step variation at key-press
         self.playerSpeed = 0                        # player current speed
-        self.platerMaxSpeed = 3.5                     # player's max speed
+        self.platerMaxSpeed = 3.5                   # player's max speed
         self.playerAcceleration = 0.1               # speed-step variation at ket-press
         self.waterDragConstant = 0.07               # defines water drag force
+        self.gameScreen = Screen                    # stores Game Screen
         self.pygame = Screen.pygame                 # pygame library 
         self.playerImage = self.pygame.transform.scale( (self.pygame.image.load("archive/boat.png")), (50, 30) )
         self.originalImage = self.playerImage       # stores original image which this only will be rotated due to memory bug
         self.screen = Screen.screen                 # stores pygame.screen
         self.update_player()                        # updates player
+        
 
 
     def accelerate_player(self, way):
@@ -72,7 +74,8 @@ class Player:
 
     def update_player(self):
         ''' Updates boat's image on screen. '''
-        self.screen.fill((255, 255, 255))
+        #self.screen.fill((255, 255, 255))
+        self.gameScreen.update_background()
         self.screen.blit( self.playerImage, (self.playerX, self.playerY) )
         self.pygame.display.update()        
 

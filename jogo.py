@@ -19,9 +19,17 @@ from config import keyboard_handler
 # init configuration settings
 Screen, Player, clock = init.game_init()
 
+my_image = pygame.image.load('archive/background.png')
+
+
+
 alive = True
 while alive:
-    
+    #Screen.update_background()
+
+
+
+
     if pygame.event.get(pygame.QUIT): 
         exit()
 
