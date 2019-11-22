@@ -15,9 +15,10 @@ from config import init
 #from config.display import Display
 import pygame
 from config import keyboard_handler
+from objects import objects
 
 # init configuration settings
-Screen, Player, clock = init.game_init()
+Screen, Player, Objects, clock = init.game_init()
 
 my_image = pygame.image.load('archive/background.png')
 
@@ -38,13 +39,19 @@ while alive:
     key = pygame.key.get_pressed()  
     alive = keyboard_handler.handler(key, Screen, Player)
     
-    
-    # move boats when there is acceleration (speed>0)
-    #print("Speed: "+str(Player.playerSpeed))
+    # moves boat when there is acceleration (speed>0)
     Player.move_player()
+
+    # moves background image
+    Screen.background_y += 0.5
             
+    # moves collect/avoid-objects when on-screen
+    Objects.manage_objects( 0.5 )
             
 
+
+    # updates screen changes - this should be at the end of this code            
+    pygame.display.update()
                        
     clock.tick(30)
 

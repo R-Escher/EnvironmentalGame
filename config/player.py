@@ -74,9 +74,8 @@ class Player:
 
     def update_player(self):
         ''' Updates boat's image on screen. '''
-        #self.screen.fill((255, 255, 255))
         self.gameScreen.update_background()
         self.screen.blit( self.playerImage, (self.playerX, self.playerY) )
-        self.pygame.display.update()        
+        #self.pygame.display.update()        
 
 
