@@ -6,9 +6,13 @@ class Player:
         self.pygame = Screen.pygame                 # pygame library 
         self.screen = Screen.screen                 # stores pygame.screen
 
-        self.playerX = 300                          # x-axis position
-        self.playerY = 300                          # y-axis position
-        
+        #self.playerX = 300
+        #self.playerY = 300                   
+
+        # creates a rectangle which is 'underneath' the object
+        # the attributes X and Y can be get by: rect.x and rect.y
+        self.rect = self.pygame.Rect(300, 300, 50, 30) 
+
         self.angle = 0                              # start-angle (pointing towards right-side of screen)
         self.angleStep = 4                          # angle-step variation at key-press
         self.playerSpeed = 0                        # player current speed
@@ -18,7 +22,17 @@ class Player:
         self.playerImage = self.pygame.transform.scale( (self.pygame.image.load("archive/boat.png")), (50, 30) )
         self.originalImage = self.playerImage       # stores original image which this only will be rotated due to memory bug
         self.update_player()                        # updates player
-        
+
+        self.score = 0
+    
+    def update_score(self, score):
+        ''' Will increase when collects collectible objects, and decrease when hits animais and/or plants. '''
+        print(score)
+        self.score += score
+        print(score)
+
+    def get_score(self):
+        return self.score
 
 
     def accelerate_player(self, way):
@@ -70,14 +84,14 @@ class Player:
 
     def calculate_new_xy(self,speed):
         ''' Calculates boat's new location, when moving, based on it's angle direction. '''
-        self.playerX = self.playerX + (speed*math.cos((-1)*self.angle*math.pi/180))
-        self.playerY = self.playerY + (speed*math.sin((-1)*self.angle*math.pi/180))
+        self.rect.x = self.rect.x + (speed*math.cos((-1)*self.angle*math.pi/180))
+        self.rect.y = self.rect.y + (speed*math.sin((-1)*self.angle*math.pi/180))
 
 
     def update_player(self):
         ''' Updates boat's image on screen. '''
         self.gameScreen.update_background()
-        self.screen.blit( self.playerImage, (self.playerX, self.playerY) )
+        self.screen.blit( self.playerImage, (self.rect.x, self.rect.y) )
         #self.pygame.display.update()        
 
 

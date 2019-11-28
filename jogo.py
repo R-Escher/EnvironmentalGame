@@ -20,9 +20,7 @@ from objects import objects
 # init configuration settings
 Screen, Player, Objects, clock = init.game_init()
 
-my_image = pygame.image.load('archive/background.png')
-
-
+step = 1
 
 alive = True
 while alive:
@@ -43,12 +41,13 @@ while alive:
     Player.move_player()
 
     # moves background image
-    Screen.background_y += 0.5
+    Screen.background_y += step
             
-    # moves collect/avoid-objects when on-screen
-    Objects.manage_objects( 0.5 )
+    # manages collect/avoid-objects when on-screen
+    Objects.manage_objects( step )
             
-
+    # prints player's score
+    print("Score: " + str(Player.get_score()))
 
     # updates screen changes - this should be at the end of this code            
     pygame.display.update()

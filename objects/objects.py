@@ -5,11 +5,12 @@ from objects.collectible import Collectible
 
 class Objects:
     
-    def __init__(self, pygame, screen):
+    def __init__(self, pygame, screen, player):
 
         # loads game libraries
         self.pygame = pygame
         self.screen = screen.screen
+        self.player = player
 
         # declares arrays that will contain the objects on-screen
         #self.collect_objects = []
@@ -32,12 +33,21 @@ class Objects:
         ''' Spawns collectible and avoidable objects randomly on screen, and moves them down in water-flux direction.\n 
             This function should be executed every game clock. '''
 
-
-
         # moves objects in water-flux direction
-        for obj in self.objects_onscreen:
+        for obj in self.objects_onscreen: 
+            # adds 'step' to Y-variable of object          
             obj.update_position(step)
+            # checks if there is collision
+            self.manage_collision(obj)
+
             
+    def manage_collision(self, obj):
+        ''' Manages collision between given object on screen and boat using pygame.rect.colliderect function. '''
+        if self.player.rect.colliderect(obj.rect):
+            obj.collided()
+            self.player.update_score(obj.get_ScoreValue())
+
+
         
 
         

@@ -17,7 +17,7 @@ def game_init():
     player = Player(screen)
 
     # inits objects on-screen
-    objects = Objects(pygame, screen)
+    objects = Objects(pygame, screen, player)
 
     # inits game clock
     clock = pygame.time.Clock()

@@ -3,55 +3,84 @@ import random
 class Collectible:
     def __init__(self, screen, pygame):
 
-        '''# loads collect-objects images into array
-        self.collect_object
-        self.collect_object.append(  )
-        self.collect_object.append(  )
-        self.collect_object.append(  )
-        self.collect_object.append(  )
-        self.collect_object.append(  )
-        self.collect_object.append(  )'''
-
         self.screen = screen
         self.pygame = pygame
-        
-        # set position of object randomly
-        self.setRandomPosition()
+    
+        # generates object and its rect
+        self.collect_object_image, self.rect = self.generateRandomObject()
 
+        # will be valued when an object_image get atributted to this class
+        #self.score_value = 0
+
+    def collided(self):
+        ''' Handles what to do when boat hits the object. '''
+        # score will be increased by Objects class
+        # move object back to top
+        self.reset_position()
+
+    def get_ScoreValue(self):
+        return self.score_value
+
+
+    def update_position(self, step):
+        ''' Updates Y-axis position of object on screen. ''' 
+
+        # checks if y is not greater than end of screen
+        if self.rect.y < 600:
+
+            # updates Y position 
+            self.rect.y = self.rect.y + step
+            self.screen.blit( self.collect_object_image, (self.rect.x, self.rect.y) )
+            
+        else:
+            # moves object back to upper screen
+            self.reset_position()
+            
+
+    def reset_position(self):
+        ''' Moves object to upper screen '''
+        self.rect.x, self.rect.y=  self.getRandomPosition()
+
+    def getRandomPosition(self):
+        return random.randrange(5, 795) , random.randrange(-600, 0) # (x, y)
+
+
+    def generateRandomObject(self):
+        ''' Generates a random object and its Rect, in a random position on screen. '''
         choice = random.randint(0, 5)
 
         if choice == 0:
-            self.collect_object_image = self.pygame.transform.scale(self.pygame.image.load("archive/collect/trash.png"), (50, 60))
+            lx, ly = 50, 60
+            collect_object_image = self.pygame.transform.scale(self.pygame.image.load("archive/collect/trash.png"), (lx, ly))
+            self.score_value = 3
         elif choice == 1:
-            self.collect_object_image = self.pygame.transform.scale(self.pygame.image.load("archive/collect/apple.png"), (15, 24))
+            lx, ly = 15, 24
+            collect_object_image = self.pygame.transform.scale(self.pygame.image.load("archive/collect/apple.png"), (lx, ly))
+            self.score_value = 1
         elif choice == 2:
-            self.collect_object_image = self.pygame.transform.scale(self.pygame.image.load("archive/collect/can.png"), (20, 24))
+            lx, ly = 20, 24
+            collect_object_image = self.pygame.transform.scale(self.pygame.image.load("archive/collect/can.png"), (lx, ly))
+            self.score_value = 2
         elif choice == 3:
-            self.collect_object_image = self.pygame.transform.scale(self.pygame.image.load("archive/collect/can2.png"), (15, 24))
+            lx, ly = 15, 24
+            collect_object_image = self.pygame.transform.scale(self.pygame.image.load("archive/collect/can2.png"), (lx, ly))
+            self.score_value = 2
         elif choice == 4:
-            self.collect_object_image = self.pygame.transform.scale(self.pygame.image.load("archive/collect/banana.png"), (15, 24))
+            lx, ly = 15, 24
+            collect_object_image = self.pygame.transform.scale(self.pygame.image.load("archive/collect/banana.png"), (lx, ly))
+            self.score_value = 1
         elif choice == 5:
-            self.collect_object_image = self.pygame.transform.scale(self.pygame.image.load("archive/collect/paper.png"), (15, 24))
-        
+            lx, ly = 15, 24
+            collect_object_image = self.pygame.transform.scale(self.pygame.image.load("archive/collect/paper.png"), (lx, ly))
+            self.score_value = 1
 
-        #self.collect_object_rect = self.collect_object.get_rect()
+        # get ramdom position on screen
+        x, y = self.getRandomPosition()
 
-    def update_position(self, step):
-        ''' Updates Y-axis position of object on screen. '''
-        
-        # checks if y is not greater than end of screen
-        if self.position[1] < 600:
-            # updates Y position 
-            self.screen.blit( self.collect_object_image, self.position )
-            self.position = ( self.position[0], self.position[1] + step )
-        else:
-            # moves object back to upper screen
-            self.setRandomPosition()
+        # creates rect with random position and predefined width and height
+        rect = self.pygame.Rect(x, y, lx, ly) 
 
-    def setRandomPosition(self):
-        self.position = ( random.randrange(5, 795) , random.randrange(-600, 0) ) # (x, y)
-
-
+        return collect_object_image, rect
 
     '''def get_image(self):
         return self.collect_object_image'''

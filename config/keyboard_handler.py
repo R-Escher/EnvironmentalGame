@@ -6,7 +6,7 @@ def handler(key, Screen, Player):
     ''' Handles keyboard presses, if any. '''
     alive = True
 
-    print(Player.playerSpeed)
+    #print("Boat's Speed: " + str(Player.playerSpeed) )
 
     #keys = pygame.key.get_pressed()
     if key[pygame.K_RIGHT]: Player.rotate_player("negative")
