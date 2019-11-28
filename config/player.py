@@ -2,19 +2,21 @@ import math, time
 
 class Player:
     def __init__(self, Screen):
+        self.gameScreen = Screen                    # stores Game Screen
+        self.pygame = Screen.pygame                 # pygame library 
+        self.screen = Screen.screen                 # stores pygame.screen
+
         self.playerX = 300                          # x-axis position
         self.playerY = 300                          # y-axis position
+        
         self.angle = 0                              # start-angle (pointing towards right-side of screen)
         self.angleStep = 4                          # angle-step variation at key-press
         self.playerSpeed = 0                        # player current speed
         self.platerMaxSpeed = 3.5                   # player's max speed
         self.playerAcceleration = 0.1               # speed-step variation at ket-press
         self.waterDragConstant = 0.07               # defines water drag force
-        self.gameScreen = Screen                    # stores Game Screen
-        self.pygame = Screen.pygame                 # pygame library 
         self.playerImage = self.pygame.transform.scale( (self.pygame.image.load("archive/boat.png")), (50, 30) )
         self.originalImage = self.playerImage       # stores original image which this only will be rotated due to memory bug
-        self.screen = Screen.screen                 # stores pygame.screen
         self.update_player()                        # updates player
         
 
