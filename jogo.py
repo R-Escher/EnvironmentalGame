@@ -58,7 +58,7 @@ while alive:
         pygame.display.update()
         time.sleep(2)
         exit()
-    if score >= 5:
+    if score >= 20:
         print("game win")
         pygame.display.update()
         font = pygame.font.Font('freesansbold.ttf', 32)
