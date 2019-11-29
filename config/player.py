@@ -49,8 +49,10 @@ class Player:
 
 
     def break_player(self):
+        self.playerSpeed = 0
+
         ''' Gradually slows down boat until fully stops. '''
-        if self.playerSpeed > 0:
+        '''if self.playerSpeed > 0:
             while self.playerSpeed > 0:
                 self.playerSpeed -= self.waterDragConstant
                 self.calculate_new_xy(self.playerSpeed)
@@ -62,7 +64,7 @@ class Player:
                 self.calculate_new_xy(self.playerSpeed)
                 self.update_player()
                 time.sleep(0.05)
-        self.playerSpeed = 0
+        self.playerSpeed = 0'''
     
     
     def move_player(self):
