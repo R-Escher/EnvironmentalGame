@@ -16,7 +16,7 @@ class Player:
         self.angle = 0                              # start-angle (pointing towards right-side of screen)
         self.angleStep = 4                          # angle-step variation at key-press
         self.playerSpeed = 0                        # player current speed
-        self.platerMaxSpeed = 3.5                   # player's max speed
+        self.platerMaxSpeed = 5.5                   # player's max speed
         self.playerAcceleration = 0.1               # speed-step variation at ket-press
         self.waterDragConstant = 0.07               # defines water drag force
         self.playerImage = self.pygame.transform.scale( (self.pygame.image.load("archive/boat.png")), (50, 30) )
@@ -84,14 +84,37 @@ class Player:
 
     def calculate_new_xy(self,speed):
         ''' Calculates boat's new location, when moving, based on it's angle direction. '''
-        self.rect.x = self.rect.x + (speed*math.cos((-1)*self.angle*math.pi/180))
-        self.rect.y = self.rect.y + (speed*math.sin((-1)*self.angle*math.pi/180))
+        if self.rect.x > 0 and self.rect.x < 750:
+            self.rect.x = self.rect.x + (speed*math.cos((-1)*self.angle*math.pi/180))
+        else:
+            self.angle = ( 180 - self.angle ) % 360 #( self.angle + 180 ) % 360
+            self.rect.x = self.rect.x + (speed*math.cos((-1)*self.angle*math.pi/180))
+            #self.reverse_direction(speed)
+            self.update_player()
+        
+        if self.rect.y > 0 and self.rect.y < 570:
+            self.rect.y = self.rect.y + (speed*math.sin((-1)*self.angle*math.pi/180)) + 1
+        else:
+            print("angle: " + str(self.angle))
+            if self.angle > 0 and self.angle < 180:
+                self.rect.y = self.rect.y + (speed*math.sin((-1)*self.angle*math.pi/180)) + 1
+            '''else:
+                self.angle = ( 360 - self.angle ) % 360 #( self.angle + 180 ) % 360
+                self.rect.y = self.rect.y + (speed*math.cos((-1)*self.angle*math.pi/180))
+                #self.reverse_direction(speed)
+                self.update_player()'''
 
 
     def update_player(self):
         ''' Updates boat's image on screen. '''
         self.gameScreen.update_background()
         self.screen.blit( self.playerImage, (self.rect.x, self.rect.y) )
-        #self.pygame.display.update()        
 
 
+    def reverse_direction(self, speed):
+        '''print("angle: " + str(self.angle))
+        self.angle = ( self.angle + 180 ) % 360
+        print("angle2: " + str(self.angle))
+        self.rect.x = self.rect.x + (speed*math.cos((-1)*self.angle*math.pi/180))'''
+        self.angle = 270
+        

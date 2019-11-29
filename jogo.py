@@ -24,10 +24,6 @@ step = 1
 
 alive = True
 while alive:
-    #Screen.update_background()
-
-
-
 
     if pygame.event.get(pygame.QUIT): 
         exit()
@@ -48,6 +44,7 @@ while alive:
             
     # prints player's score
     print("Score: " + str(Player.get_score()))
+    Screen.update_onscreen_score(Player.get_score())
 
     # updates screen changes - this should be at the end of this code            
     pygame.display.update()

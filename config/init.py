@@ -23,5 +23,3 @@ def game_init():
     clock = pygame.time.Clock()
 
     return screen, player, objects, clock
-
-
