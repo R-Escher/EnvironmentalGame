@@ -14,6 +14,7 @@ from config import init
 #from config.player import Player
 #from config.display import Display
 import pygame
+import time
 from config import keyboard_handler
 from objects import objects
 
@@ -43,8 +44,31 @@ while alive:
     Objects.manage_objects( step )
             
     # prints player's score
-    print("Score: " + str(Player.get_score()))
-    Screen.update_onscreen_score(Player.get_score())
+    score = Player.get_score()
+    Screen.update_onscreen_score(score)
+
+    if score < 0:
+        print("game over")
+        pygame.display.update()
+        font = pygame.font.Font('freesansbold.ttf', 32)
+        text = font.render("Você perdeu!", True, (0, 0, 0), (255, 255, 255))
+        textRect = text.get_rect()
+        textRect.center = (400, 300)
+        Screen.screen.blit(text, textRect)
+        pygame.display.update()
+        time.sleep(2)
+        exit()
+    if score >= 5:
+        print("game win")
+        pygame.display.update()
+        font = pygame.font.Font('freesansbold.ttf', 32)
+        text = font.render("Você ganhou!", True, (0, 0, 0), (255, 255, 255))
+        textRect = text.get_rect()
+        textRect.center = (400, 300)
+        Screen.screen.blit(text, textRect)
+        pygame.display.update()
+        time.sleep(2)
+        exit()        
 
     # updates screen changes - this should be at the end of this code            
     pygame.display.update()

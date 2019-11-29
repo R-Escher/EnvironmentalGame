@@ -1,5 +1,6 @@
 import random
 from objects.collectible import Collectible
+from objects.avoidable import Avoidable
 #from avoidable import avoidable
 
 
@@ -23,6 +24,7 @@ class Objects:
         # spawns objects if less then max are on screen
         while len(self.objects_onscreen) < self.max_collect_objects:
             self.objects_onscreen.append( Collectible( self.screen, self.pygame ) )
+            self.objects_onscreen.append( Avoidable( self.screen, self.pygame ) )
             #self.screen.blit( self.collect_objects[ random.randrange(6) ], (random.randrange(5, 795) , 50) )        
 
         # loads avoid-objects images into array

@@ -89,20 +89,18 @@ class Player:
         else:
             self.angle = ( 180 - self.angle ) % 360 #( self.angle + 180 ) % 360
             self.rect.x = self.rect.x + (speed*math.cos((-1)*self.angle*math.pi/180))
-            #self.reverse_direction(speed)
             self.update_player()
         
         if self.rect.y > 0 and self.rect.y < 570:
             self.rect.y = self.rect.y + (speed*math.sin((-1)*self.angle*math.pi/180)) + 1
         else:
-            print("angle: " + str(self.angle))
-            if self.angle > 0 and self.angle < 180:
-                self.rect.y = self.rect.y + (speed*math.sin((-1)*self.angle*math.pi/180)) + 1
-            '''else:
+            if self.rect.y <= 0:
                 self.angle = ( 360 - self.angle ) % 360 #( self.angle + 180 ) % 360
-                self.rect.y = self.rect.y + (speed*math.cos((-1)*self.angle*math.pi/180))
-                #self.reverse_direction(speed)
-                self.update_player()'''
+                self.rect.y = self.rect.y + 1#(speed*math.cos((-1)*self.angle*math.pi/180))
+            if self.rect.y >= 570:
+                if self.angle > 0 and self.angle < 180:
+                    self.rect.y = self.rect.y + (speed*math.sin((-1)*self.angle*math.pi/180)) + 1
+
 
 
     def update_player(self):
@@ -110,11 +108,4 @@ class Player:
         self.gameScreen.update_background()
         self.screen.blit( self.playerImage, (self.rect.x, self.rect.y) )
 
-
-    def reverse_direction(self, speed):
-        '''print("angle: " + str(self.angle))
-        self.angle = ( self.angle + 180 ) % 360
-        print("angle2: " + str(self.angle))
-        self.rect.x = self.rect.x + (speed*math.cos((-1)*self.angle*math.pi/180))'''
-        self.angle = 270
         
